@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Massilly Services - Création d'Article</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#c9e6ff",
+              "primary-fixed-dim": "#b1c5ff",
+              "surface-tint": "#3d5ca2",
+              "on-error-container": "#93000a",
+              "outline-variant": "#c4c6d2",
+              "surface-container": "#eeeeee",
+              "error": "#ba1a1a",
+              "primary": "#001a48",
+              "outline": "#747782",
+              "surface-bright": "#f9f9f9",
+              "secondary-container": "#0cb3ff",
+              "on-secondary-fixed": "#001e2f",
+              "tertiary-fixed-dim": "#b5c7e9",
+              "primary-container": "#002d72",
+              "surface-container-low": "#f3f3f3",
+              "on-surface": "#1a1c1c",
+              "surface-container-highest": "#e2e2e2",
+              "inverse-primary": "#b1c5ff",
+              "on-tertiary-fixed-variant": "#354763",
+              "primary-fixed": "#dae2ff",
+              "background": "#f9f9f9",
+              "on-tertiary-fixed": "#071c35",
+              "tertiary-fixed": "#d5e3ff",
+              "on-secondary": "#ffffff",
+              "on-error": "#ffffff",
+              "tertiary": "#081d36",
+              "surface-container-high": "#e8e8e8",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#001946",
+              "surface": "#f9f9f9",
+              "on-secondary-container": "#004261",
+              "surface-variant": "#e2e2e2",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#f1f1f1",
+              "on-primary-fixed-variant": "#224489",
+              "on-primary": "#ffffff",
+              "surface-dim": "#dadada",
+              "on-tertiary-container": "#889aba",
+              "on-primary-container": "#7a97e2",
+              "on-background": "#1a1c1c",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#004b6f",
+              "inverse-surface": "#2f3131",
+              "secondary": "#006492",
+              "tertiary-container": "#1f324c",
+              "secondary-fixed-dim": "#8bceff",
+              "on-surface-variant": "#444651"
+            },
+            fontFamily: {
+              "headline": ["Work Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface flex min-h-screen">
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 bg-[#f9f9f9] dark:bg-slate-900 h-screen w-64 border-r-0 z-40">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<img alt="Massilly Logo" class="h-10 w-10 object-contain" data-alt="clean geometric logo for an industrial metal packaging company navy blue tones on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Q68-bkap8dWc6XoNx7lHvtEfcgmMp1oi7EGP2JoNzFsE3XDVm8p7lqvDuo7Y4zVis06NnW5SQ_hb6sRaMj58JRmnka06hEVDUeIgFyZhoii2KaDDDSW4Y1-ZtIyxkb2g1_GPTSzmXQPOiC8EW3QEN7x3fvTfcarpfgWQiO8JPxLDWduXUGj1eb4GzG5w7ahTO0qnhVxIzdVWKbflsD9bzChQ42PnQYHuw0blr8GiB-fVh9EscP5LQpH35JU_xUi7YEFb7qkYkVk"/>
+<div>
+<h1 class="text-lg font-bold text-[#001a48] dark:text-white font-headline leading-none">Massilly Services</h1>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Industrial Architect v1.0</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2.5 mx-2 rounded-md text-[#444651] dark:text-slate-400 hover:bg-[#dadada] dark:hover:bg-slate-700 transition-colors font-medium text-sm group" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 mx-2 rounded-md text-[#444651] dark:text-slate-400 hover:bg-[#dadada] dark:hover:bg-slate-700 transition-colors font-medium text-sm group" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                Client Requests
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 bg-[#0cb3ff] text-white rounded-md mx-2 shadow-sm font-medium text-sm group" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">settings_input_component</span>
+                Article Config
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 mx-2 rounded-md text-[#444651] dark:text-slate-400 hover:bg-[#dadada] dark:hover:bg-slate-700 transition-colors font-medium text-sm group" href="#">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+                M3 Sync
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 mx-2 rounded-md text-[#444651] dark:text-slate-400 hover:bg-[#dadada] dark:hover:bg-slate-700 transition-colors font-medium text-sm group" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                Logs
+            </a>
+</nav>
+<div class="px-4 mt-auto space-y-1">
+<button class="w-full flex items-center justify-center gap-2 py-3 mb-4 bg-primary text-white rounded-lg font-semibold text-sm transition-transform active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                New Request
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-[#444651] hover:text-primary font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#444651] hover:text-error font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar (Execution from JSON) -->
+<header class="sticky top-0 z-30 bg-[#001a48] dark:bg-slate-950 flex justify-between items-center w-full px-10 h-16 shadow-lg shadow-[#001a48]/20">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-white tracking-tighter font-headline">Massilly Services</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-bold font-headline" href="#">Besoin en Capsules</a>
+<a class="text-[#0cb3ff] border-b-2 border-[#0cb3ff] pb-1 text-sm font-bold font-headline" href="#">Création d'Article</a>
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-bold font-headline" href="#">Expert Dashboard</a>
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-bold font-headline" href="#">Configurator</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-[#0cb3ff] cursor-pointer p-2 hover:bg-white/10 rounded-full transition-all duration-200">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-[#0cb3ff] cursor-pointer p-2 hover:bg-white/10 rounded-full transition-all duration-200">settings</span>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-[#0cb3ff]/30">
+<img alt="User profile avatar" class="object-cover w-full h-full" data-alt="professional portrait of a technical engineer in a clean studio setting soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcD-g8WqmL-JflQwI6W5JcSdwJam4_1k8FOmcsR_rFETrdxMAEejqSPhAQ3Tqrn9NIrNAeB3PUu7hUmlR9qEBzKRJ0aEtftqWfUKnYve_e2NAcesdVmDHhYCw9uD7_Q3vgCGvFpj_crQ36cuCz-K3_N49qnhmGr-OBXZgaqXfIDbdgfG8kFPzM2Sh6M3qPbx2IgVBp_V4Q90q_HxbPfTqS5Jn8OXpD2ZLX214u1Fy-hUHudNI450SYgHXJdG7sjlizVBFxOP7vv48"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-10 max-w-6xl mx-auto w-full space-y-8">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-secondary font-bold text-xs tracking-widest uppercase">Espace Configurateur</span>
+<div class="h-[1px] w-12 bg-outline-variant/30"></div>
+</div>
+<h2 class="text-4xl font-extrabold font-headline text-primary tracking-tight">Configuration de l'Article</h2>
+<p class="text-on-surface-variant mt-2 max-w-xl">Remplissez les spécifications techniques pour générer la nouvelle référence industrielle dans l'ERP M3.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2.5 text-primary font-bold hover:bg-surface-container-high transition-colors rounded-lg">Annuler</button>
+<button class="px-8 py-2.5 bg-secondary text-white font-bold rounded-lg shadow-md hover:brightness-110 active:scale-95 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        Valider
+                    </button>
+</div>
+</div>
+<!-- Dashboard Grid Area -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Main Accordion Column -->
+<div class="col-span-12 lg:col-span-8 space-y-4">
+<!-- Section 1: Référentiel M3 -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm transition-all duration-300 border-l-4 border-primary">
+<button class="w-full flex items-center justify-between p-6 text-left group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">database</span>
+</div>
+<div>
+<span class="text-[10px] text-primary font-bold uppercase tracking-widest leading-none">Section 1</span>
+<h3 class="text-lg font-bold font-headline text-primary leading-tight">Référentiel M3</h3>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="px-6 pb-8">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Code Client (ERP)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-0 border-b-2 border-outline-variant/30 focus:border-secondary focus:ring-0 text-sm py-2.5 transition-all" placeholder="Ex: CUST-8829" type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-outline-variant text-sm">search</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Type de Métal</label>
+<select class="w-full bg-surface-container-lowest border-0 border-b-2 border-outline-variant/30 focus:border-secondary focus:ring-0 text-sm py-2.5 transition-all">
+<option>Fer blanc (Tinplate)</option>
+<option>Aluminium</option>
+<option>Acier Chromé (TFS)</option>
+</select>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Division Logistique</label>
+<input class="w-full bg-surface-container-lowest border-0 border-b-2 border-outline-variant/30 focus:border-secondary focus:ring-0 text-sm py-2.5 transition-all" type="text" value="Division 100 - Industrial"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Code Devise</label>
+<input class="w-full bg-surface-container-high/50 border-0 border-b-2 border-outline-variant/20 text-sm py-2.5 text-on-surface-variant cursor-not-allowed" readonly="" type="text" value="EUR"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Paramètres techniques -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm transition-all duration-300">
+<button class="w-full flex items-center justify-between p-6 text-left group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">settings_suggest</span>
+</div>
+<div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest leading-none">Section 2</span>
+<h3 class="text-lg font-bold font-headline text-primary leading-tight">Paramètres Techniques</h3>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="px-6 pb-8 space-y-6">
+<div class="grid grid-cols-3 gap-6">
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Grammage (GP)</label>
+<div class="flex items-center gap-2">
+<input class="w-full bg-surface-container-lowest border-0 border-b-2 border-outline-variant/30 focus:border-secondary focus:ring-0 text-sm py-2.5" step="0.01" type="number"/>
+<span class="text-xs font-bold text-outline">g/m²</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Format (mm)</label>
+<input class="w-full bg-surface-container-lowest border-0 border-b-2 border-outline-variant/30 focus:border-secondary focus:ring-0 text-sm py-2.5" placeholder="Ex: 800 x 950" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Vernis Intérieur</label>
+<select class="w-full bg-surface-container-lowest border-0 border-b-2 border-outline-variant/30 focus:border-secondary focus:ring-0 text-sm py-2.5">
+<option>Organosol Gold</option>
+<option>Epoxy Phenolic</option>
+<option>BPA-NI White</option>
+</select>
+</div>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/10 flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-0.5">info</span>
+<div class="text-xs leading-relaxed text-on-surface-variant italic">
+                                    Le choix du vernis influence directement la compatibilité avec les normes de sécurité alimentaire européennes. Vérifiez la fiche technique.
+                                </div>
+</div>
+</div>
+</div>
+<!-- Section 3: Contrôle d'unicité -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm transition-all duration-300">
+<button class="w-full flex items-center justify-between p-6 text-left group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/10 flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined">rule</span>
+</div>
+<div>
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest leading-none">Section 3</span>
+<h3 class="text-lg font-bold font-headline text-primary leading-tight">Contrôle d'Unicité ERP</h3>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-transform">expand_more</span>
+</button>
+<div class="px-6 pb-8">
+<div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant/20 flex items-center justify-between">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+<span class="text-sm font-bold text-on-surface">Statut : Référence unique</span>
+</div>
+<p class="text-xs text-on-surface-variant italic">L'article configuré n'existe pas encore dans M3. Création possible.</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="text-[10px] font-bold text-outline-variant uppercase">Code Provisoire</span>
+<span class="font-mono text-primary font-bold text-lg">ART-2024-X09</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Information Column -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Real-time Preview Card -->
+<div class="bg-primary text-white p-6 rounded-xl shadow-xl relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+<h4 class="text-sm font-bold uppercase tracking-tighter mb-4 border-b border-white/10 pb-2">Aperçu Configuration</h4>
+<ul class="space-y-4 text-sm">
+<li class="flex justify-between items-start">
+<span class="text-white/60">Référence</span>
+<span class="text-right font-medium">CAPS-70-G12</span>
+</li>
+<li class="flex justify-between items-start">
+<span class="text-white/60">Substrat</span>
+<span class="text-right font-medium">Tinplate 0.18mm</span>
+</li>
+<li class="flex justify-between items-start">
+<span class="text-white/60">Process</span>
+<span class="text-right font-medium">Stirring + Coating</span>
+</li>
+<li class="flex justify-between items-start">
+<span class="text-white/60">Emballage</span>
+<span class="text-right font-medium">Palette Euro x 48</span>
+</li>
+</ul>
+<div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+<span class="text-xs font-bold text-[#0cb3ff]">Dernier sync ERP</span>
+<span class="text-[10px] text-white/40">Aujourd'hui, 14:32</span>
+</div>
+</div>
+<!-- Visual Reference -->
+<div class="bg-surface-container-lowest border border-outline-variant/10 rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 bg-surface-container-low flex justify-between items-center">
+<span class="text-xs font-bold text-primary uppercase">Schéma Technique</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">photo_camera</span>
+</div>
+<div class="h-48 relative">
+<img alt="Technical Schema" class="w-full h-full object-cover grayscale brightness-90 contrast-125" data-alt="blueprint schematic drawing of a metal bottle cap with precise measurements and cross-section details industrial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-3751DkulI8HVDhDXkVcI0BAyn-oRpXVXJiDr-wM5Ma22cROOPq0Ycch_5236MkszrEH5JX1nDyFW2CffgBZfkf2YRp9cgfqwh6hQ_vNbBysAClxTRDgFQa-GSCwzAeQekE-3EVf76Lhm16LWyJf5cEqk5zR6dKfc3at3QBm24no9_F_4_Zq2x2AT6BS9RMBNPvaP-BP6HCLUtaA1X6WP28gb3VSBbR4RFmu0Yzr3AF619LTHSlLcEUuD8MKRy0FyXCi0BnbJsks"/>
+<div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+<div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-[10px] font-bold text-primary shadow-sm uppercase">
+                                Modèle 70-TO
+                            </div>
+</div>
+</div>
+<!-- Validation Checklist -->
+<div class="bg-white p-6 rounded-xl border border-outline-variant/10">
+<h4 class="text-xs font-bold text-on-surface-variant uppercase mb-4 tracking-widest">Checklist de validation</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs text-on-surface-variant">Client validé dans M3</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500 text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs text-on-surface-variant">Coût matière actualisé</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline-variant text-sm">radio_button_unchecked</span>
+<span class="text-xs text-on-surface-variant">Validation Qualité (Pending)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Note -->
+<footer class="mt-auto py-6 px-10 border-t border-outline-variant/10 text-center">
+<p class="text-[10px] text-outline uppercase tracking-widest font-medium">Massilly Services Industriels — Système de gestion des actifs critiques — © 2024</p>
+</footer>
+</main>
+</body></html>
