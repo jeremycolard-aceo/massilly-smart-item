@@ -5,18 +5,12 @@ export default function Sidebar({ currentView, setCurrentView }) {
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 flex flex-col py-6 bg-surface-container-low dark:bg-slate-900 z-40">
       {/* Brand Logo */}
-      <div className="px-6 mb-8">
-        <div className="flex items-center gap-3">
-          <img 
-            alt="Massilly Logo" 
-            className="h-10 w-10 object-contain" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Q68-bkap8dWc6XoNx7lHvtEfcgmMp1oi7EGP2JoNzFsE3XDVm8p7lqvDuo7Y4zVis06NnW5SQ_hb6sRaMj58JRmnka06hEVDUeIgFyZhoii2KaDDDSW4Y1-ZtIyxkb2g1_GPTSzmXQPOiC8EW3QEN7x3fvTfcarpfgWQiO8JPxLDWduXUGj1eb4GzG5w7ahTO0qnhVxIzdVWKbflsD9bzChQ42PnQYHuw0blr8GiB-fVh9EscP5LQpH35JU_xUi7YEFb7qkYkVk"
-          />
-          <div>
-            <h1 className="text-lg font-bold text-primary dark:text-white font-headline leading-none">Massilly Services</h1>
-            <p className="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Industrial Architect v1.0</p>
-          </div>
-        </div>
+      <div className="px-6 mb-8 flex items-center justify-start">
+        <img 
+          alt="Massilly Services" 
+          className="h-12 w-auto object-contain" 
+          src="./logo.png"
+        />
       </div>
 
       {/* Navigation Links */}

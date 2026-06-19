@@ -529,15 +529,33 @@ export default function InternalView({ showToast }) {
               <span className="text-xs font-bold text-primary uppercase">Schéma Technique</span>
               <Camera className="w-4 h-4 text-on-surface-variant" />
             </div>
-            <div className="h-48 relative">
+            <div className="h-48 relative bg-white flex items-center justify-center rounded-b-xl overflow-hidden">
               <img 
                 alt="Technical Schema" 
-                className="w-full h-full object-cover grayscale brightness-90 contrast-125" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-3751DkulI8HVDhDXkVcI0BAyn-oRpXVXJiDr-wM5Ma22cROOPq0Ycch_5236MkszrEH5JX1nDyFW2CffgBZfkf2YRp9cgfqwh6hQ_vNbBysAClxTRDgFQa-GSCwzAeQekE-3EVf76Lhm16LWyJf5cEqk5zR6dKfc3at3QBm24no9_F_4_Zq2x2AT6BS9RMBNPvaP-BP6HCLUtaA1X6WP28gb3VSBbR4RFmu0Yzr3AF619LTHSlLcEUuD8MKRy0FyXCi0BnbJsks"
+                className="w-full h-full object-contain p-2" 
+                src={
+                  division === "Food Cans"
+                    ? "./food_cans.png"
+                    : division === "Capsules"
+                    ? "./capsules.png"
+                    : division === "General Line"
+                    ? "./general_line.png"
+                    : division === "Aérosols"
+                    ? "./aerosols.jpg"
+                    : "./food_cans.png"
+                }
               />
-              <div className="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
-              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-[10px] font-bold text-primary shadow-sm uppercase font-mono">
-                Modèle 70-TO
+              <div className="absolute inset-0 bg-primary/5 pointer-events-none mix-blend-multiply"></div>
+              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-[10px] font-bold text-primary shadow-sm uppercase font-mono border border-outline-variant/20">
+                {division === "Food Cans"
+                  ? "Boîte 3-Pièces"
+                  : division === "Capsules"
+                  ? "Capsule 70-TO"
+                  : division === "General Line"
+                  ? "Bidon Industriel"
+                  : division === "Aérosols"
+                  ? "Boîtier Aérosol"
+                  : "Spécification"}
               </div>
             </div>
           </div>
