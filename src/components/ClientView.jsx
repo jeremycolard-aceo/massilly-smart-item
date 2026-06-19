@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ShieldCheck, Info, FileText, CheckCircle2 } from "lucide-react";
 
-export default function ClientView({ showToast }) {
+export default function ClientView({ showToast, articles, setArticles }) {
   // Form State
   const [formData, setFormData] = useState({
     designation: "Boîte Conserve Standard",
@@ -30,9 +30,29 @@ export default function ClientView({ showToast }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Create new article entry
+    const newArticle = {
+      id: "ART-" + Math.floor(1000 + Math.random() * 9000),
+      designation: formData.designation,
+      clientName: "Client Test SAS", // Salesforce pre-filled client
+      clientCode: "CLI-4512",
+      division: "Food Cans", // based on pre-filled division
+      subType: "Boîte 3 pièces", // default default sub-type
+      diameter: formData.diameter,
+      height: formData.height,
+      varnish: formData.varnish,
+      phResistance: formData.phResistance,
+      alcoholRate: formData.alcoholRate,
+      packaging: formData.packaging,
+      status: "En attente"
+    };
+
+    setArticles(prev => [newArticle, ...prev]);
+
     // Trigger success Toast
     showToast(
-      "✅ Succès ! Un email contenant le PDF a été envoyé au client et le dossier transmis à l'ADV.",
+      "✅ Succès ! Un email récapitulatif contenant le PDF de configuration vient d'être envoyé au client et le dossier a été transmis à l'Administration Des Ventes (ADV)",
       "success"
     );
   };

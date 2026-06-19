@@ -9,6 +9,43 @@ export default function App() {
   // Navigation State: 'client' or 'internal'
   const [view, setView] = useState("internal");
 
+  // Lifted Articles State
+  const [articles, setArticles] = useState([
+    {
+      id: "ART-8829",
+      designation: "Capsule Twist-off 70",
+      clientName: "Client Test SAS",
+      clientCode: "CLI-4512",
+      division: "Capsules",
+      subType: "Twist-off",
+      diameter: "70",
+      height: "10",
+      varnish: "Organosol Gold",
+      phResistance: "pH 4-6",
+      alcoholRate: 12,
+      packaging: "Palette Euro x 48",
+      status: "En attente"
+    },
+    {
+      id: "ART-4521",
+      designation: "Boîte Conserve 3-P",
+      clientName: "Conserves du Midi",
+      clientCode: "CLI-9912",
+      division: "Food Cans",
+      subType: "Boîte 3 pièces",
+      diameter: "73",
+      height: "110",
+      varnish: "Epoxy Phenolic",
+      phResistance: "Neutre",
+      alcoholRate: 0,
+      packaging: "Vrac",
+      status: "En attente"
+    }
+  ]);
+
+  // Selected Article for configuration
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
+
   // Toast Notification State
   const [toast, setToast] = useState({
     show: false,
@@ -51,9 +88,19 @@ export default function App() {
           {/* Transition wrapper (Remounts on key change for a smooth CSS fade-in) */}
           <div key={view} className="animate-fadeIn">
             {view === "client" ? (
-              <ClientView showToast={showToast} />
+              <ClientView 
+                showToast={showToast} 
+                articles={articles} 
+                setArticles={setArticles} 
+              />
             ) : (
-              <InternalView showToast={showToast} />
+              <InternalView 
+                showToast={showToast} 
+                articles={articles} 
+                setArticles={setArticles}
+                selectedArticleId={selectedArticleId}
+                setSelectedArticleId={setSelectedArticleId}
+              />
             )}
           </div>
         </main>

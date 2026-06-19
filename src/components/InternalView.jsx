@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Database, Settings, ClipboardCheck, Info, Loader2, CheckCircle2, ChevronDown, Camera } from "lucide-react";
+import { Database, Settings, ClipboardCheck, Info, Loader2, CheckCircle2, ChevronDown, Camera, ArrowLeft } from "lucide-react";
 
-export default function InternalView({ showToast }) {
+export default function InternalView({ 
+  showToast, 
+  articles, 
+  setArticles, 
+  selectedArticleId, 
+  setSelectedArticleId 
+}) {
+  // Navigation inside Internal View: 'list' (dashboard table) or 'configure' (configurator)
+  const [subView, setSubView] = useState("list");
+
   // Configurator steps & accordions
   const [activeStep, setActiveStep] = useState(1); // 1: Référentiel M3, 2: Paramètres Techniques, 3: Validation
   const [activeSection, setActiveSection] = useState(1); // 1, 2, 3
@@ -32,10 +41,31 @@ export default function InternalView({ showToast }) {
     "Aérosols": ["Boîtier aérosol", "Coupelle", "Diffuseur"]
   };
 
-  // Update subType when division changes
+  // Pre-fill form fields when an article is selected from the list
+  useEffect(() => {
+    if (selectedArticleId) {
+      const art = articles.find(a => a.id === selectedArticleId);
+      if (art) {
+        setClientCode(art.clientCode || "CUST-8829");
+        setDivision(art.division || "Food Cans");
+        setSubType(art.subType || "Boîte 3 pièces");
+        setGrammage(art.grammage || "2.80");
+        setFormat(art.format || "800 x 950");
+        setVarnish(art.varnish || "Organosol Gold");
+        
+        // Reset steps & search
+        setActiveStep(1);
+        setActiveSection(1);
+        setAntiDuplicateSearch("");
+        setShowDuplicateWarning(false);
+      }
+    }
+  }, [selectedArticleId, articles]);
+
+  // Update subType when division changes (only if it doesn't match current selection)
   useEffect(() => {
     const availableTypes = subTypesByDivision[division] || [];
-    if (availableTypes.length > 0) {
+    if (availableTypes.length > 0 && !availableTypes.includes(subType)) {
       setSubType(availableTypes[0]);
     }
   }, [division]);
@@ -67,24 +97,159 @@ export default function InternalView({ showToast }) {
     setIsValidating(true);
     setTimeout(() => {
       setIsValidating(false);
+      
+      // Update article status to Injected
+      if (selectedArticleId) {
+        setArticles(prev => prev.map(art => {
+          if (art.id === selectedArticleId) {
+            return { ...art, status: "Injecté" };
+          }
+          return art;
+        }));
+      }
+
       showToast("✅ Article injecté avec succès dans l'ERP M3 via Boomi.", "success");
+      setSubView("list");
+      setSelectedArticleId(null);
     }, 2000);
   };
 
+  // Render List View
+  if (subView === "list") {
+    const pendingArticles = articles.filter(a => a.status === "En attente");
+    const validatedArticles = articles.filter(a => a.status === "Injecté");
+
+    return (
+      <div className="space-y-8 animate-fadeIn">
+        {/* Title area with Quick Metrics */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-2">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-secondary font-bold text-xs tracking-widest uppercase">Console d'administration</span>
+              <div className="h-[1px] w-12 bg-outline-variant/30"></div>
+            </div>
+            <h2 className="text-4xl font-extrabold font-headline text-primary tracking-tight">Articles à Valider</h2>
+            <p className="text-on-surface-variant mt-2 max-w-xl">
+              Sélectionnez une demande client pour configurer les paramètres techniques finaux et valider l'injection ERP.
+            </p>
+          </div>
+          
+          {/* Quick Metrics */}
+          <div className="flex gap-4 w-full md:w-auto">
+            <div className="bg-surface-container-low p-4 rounded-xl shadow-sm text-center flex-1 md:flex-none md:min-w-[120px]">
+              <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">En attente</span>
+              <p className="text-3xl font-black font-headline text-amber-500 mt-1">{pendingArticles.length}</p>
+            </div>
+            <div className="bg-surface-container-low p-4 rounded-xl shadow-sm text-center flex-1 md:flex-none md:min-w-[120px]">
+              <span className="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Injectés</span>
+              <p className="text-3xl font-black font-headline text-emerald-500 mt-1">{validatedArticles.length}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Table of Articles */}
+        <div className="bg-surface-container-low p-6 rounded-xl shadow-sm space-y-4">
+          <h3 className="text-lg font-bold font-headline text-primary">Demandes de Création d'Article</h3>
+          
+          {articles.length === 0 ? (
+            <div className="p-8 bg-surface-container-lowest rounded-lg border border-outline-variant/10 text-center italic text-on-surface-variant">
+              Aucun article pour le moment.
+            </div>
+          ) : (
+            <div className="overflow-x-auto rounded-lg bg-surface-container-lowest shadow-sm">
+              <table className="w-full text-left border-collapse min-w-[700px]">
+                <thead>
+                  <tr className="bg-primary text-white text-[11px] font-bold uppercase tracking-wider">
+                    <th className="p-4 rounded-tl-lg">ID Réf</th>
+                    <th className="p-4">Client</th>
+                    <th className="p-4">Désignation</th>
+                    <th className="p-4">Division</th>
+                    <th className="p-4">Vernis</th>
+                    <th className="p-4">Statut</th>
+                    <th className="p-4 rounded-tr-lg text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-surface-container-low">
+                  {articles.map((art) => (
+                    <tr 
+                      key={art.id}
+                      onClick={() => {
+                        setSelectedArticleId(art.id);
+                        setSubView("configure");
+                      }}
+                      className="hover:bg-secondary/5 transition-colors cursor-pointer group text-sm"
+                    >
+                      <td className="p-4 font-mono font-bold text-primary">{art.id}</td>
+                      <td className="p-4">
+                        <div className="font-bold text-on-surface">{art.clientName}</div>
+                        <div className="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">{art.clientCode}</div>
+                      </td>
+                      <td className="p-4 text-on-surface-variant font-medium">{art.designation}</td>
+                      <td className="p-4">
+                        <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/10 text-primary">
+                          {art.division}
+                        </span>
+                      </td>
+                      <td className="p-4 text-on-surface-variant font-medium text-xs">{art.varnish}</td>
+                      <td className="p-4">
+                        {art.status === "En attente" ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-50 text-amber-600 border border-amber-200">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                            En attente
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-600 border border-emerald-200">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            Injecté
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-4 text-right">
+                        <button 
+                          className="px-4 py-1.5 bg-secondary text-white text-xs font-bold rounded hover:brightness-110 active:scale-95 transition-all shadow-sm"
+                        >
+                          Configurer
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Render Configurator View
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Title section */}
-      <div className="flex justify-between items-end mb-2">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-2">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-secondary font-bold text-xs tracking-widest uppercase">Espace Configurateur</span>
-            <div className="h-[1px] w-12 bg-outline-variant/30"></div>
+            <button 
+              onClick={() => { setSubView("list"); setSelectedArticleId(null); }}
+              className="flex items-center gap-1 text-secondary font-bold text-xs tracking-widest uppercase hover:underline"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" /> Table des articles
+            </button>
+            <div className="h-[1px] w-8 bg-outline-variant/30"></div>
+            <span className="text-on-surface-variant font-bold text-xs tracking-widest uppercase">Espace Configurateur</span>
           </div>
           <h2 className="text-4xl font-extrabold font-headline text-primary tracking-tight">Configuration de l'Article</h2>
-          <p className="text-on-surface-variant mt-2 max-w-xl">Remplissez les spécifications techniques pour générer la nouvelle référence industrielle dans l'ERP M3.</p>
+          <p className="text-on-surface-variant mt-2 max-w-xl">
+            Remplissez les spécifications techniques pour générer la nouvelle référence industrielle dans l'ERP M3.
+          </p>
         </div>
-        <div className="hidden sm:flex items-center gap-4">
-          <button className="px-6 py-2.5 text-primary font-bold hover:bg-surface-container-high transition-colors rounded-lg text-sm">Annuler</button>
+        <div className="flex items-center gap-4 w-full md:w-auto justify-end">
+          <button 
+            onClick={() => { setSubView("list"); setSelectedArticleId(null); }}
+            className="px-6 py-2.5 text-primary font-bold hover:bg-surface-container-high transition-colors rounded-lg text-sm"
+          >
+            Retour
+          </button>
           <button 
             onClick={handleValidate}
             disabled={isValidating}
@@ -98,7 +263,7 @@ export default function InternalView({ showToast }) {
             ) : (
               <>
                 <CheckCircle2 className="w-4 h-4" />
-                Valider
+                Valider et injecter dans M3
               </>
             )}
           </button>
@@ -264,7 +429,7 @@ export default function InternalView({ showToast }) {
                     <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Code Devise</label>
                     <input 
                       className="w-full bg-surface-container-high/50 border-0 border-b-2 border-outline-variant/20 text-sm py-2.5 text-on-surface-variant cursor-not-allowed px-2 rounded-t-md" 
-                      readonly 
+                      readOnly 
                       type="text" 
                       value="EUR" 
                     />
@@ -416,7 +581,7 @@ export default function InternalView({ showToast }) {
                     <div className="flex items-start gap-3">
                       <span className="text-lg mt-0.5">⚠️</span>
                       <div className="text-xs font-bold leading-normal">
-                        Attention : Une référence proche existe déjà (CAPS-A12-2023). Souhaitez-vous la modifier ?
+                        Attention : Un article similaire existe déjà dans l'ERP. Souhaitez-vous plutôt le modifier ?
                       </div>
                     </div>
                     <div className="flex gap-2 justify-end">
