@@ -9,7 +9,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
         <img 
           alt="Massilly Services" 
           className="h-12 w-auto object-contain" 
-          src="./logo.png"
+          src="./logo1.png"
         />
       </div>
 
